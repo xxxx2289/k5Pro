@@ -1,4 +1,4 @@
-name: Build boot.img
+name: Boot Image Build
 
 on:
   workflow_dispatch:
@@ -6,16 +6,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download Kernel
+      - name: Download kernel
         uses: actions/download-artifact@v3
         with:
           name: kernel
           path: kernel
 
-      - name: Download RootFS
+      - name: Download rootfs
         uses: actions/download-artifact@v3
         with:
           name: rootfs
@@ -29,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bootimg
-          path: K5Pro_Linux_boot.img
+          path: K5Pro_Ubuntu22.04_boot.img
