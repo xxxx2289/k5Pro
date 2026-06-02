@@ -7,16 +7,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Download Kernel
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: kernel
           path: kernel
 
       - name: Download RootFS
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: rootfs
           path: rootfs
@@ -25,7 +25,7 @@ jobs:
         run: bash bootimg/mkbootimg.sh
 
       - name: Upload Boot Image
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bootimg
           path: K5Pro_Ubuntu22.04_boot.img
