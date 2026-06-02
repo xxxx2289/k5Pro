@@ -1,4 +1,4 @@
-name: Kernel Build
+name: Build Kernel
 
 on:
   workflow_dispatch:
@@ -6,22 +6,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install toolchain
-        run: |
-          sudo apt update
-          sudo apt install -y gcc-aarch64-linux-gnu make bc
+      - name: Install Toolchain
+        run: sudo apt install -y gcc-aarch64-linux-gnu make bc
 
-      - name: Build kernel
+      - name: Build Kernel
         run: |
           cd kernel
           make ARCH=arm64 O=out defconfig
           make -j$(nproc) ARCH=arm64 O=out Image.gz-dtb
 
-      - name: Upload kernel
+      - name: Upload Kernel Artifact
         uses: actions/upload-artifact@v3
         with:
           name: kernel
