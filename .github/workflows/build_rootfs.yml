@@ -1,1 +1,25 @@
-2
+name: Build RootFS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y debootstrap qemu-user-static cpio
+
+      - name: Build rootfs
+        run: |
+          bash rootfs/scripts/build_rootfs.sh
+
+      - name: Upload RootFS Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: rootfs
+          path: rootfs/initramfs.cpio.gz
