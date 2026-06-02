@@ -1,43 +1,18 @@
-# K5 Pro Linux Project (Snapdragon 636)
+# K5 Pro Linux Project (SD636)
 
-这是一个把联想 K5 Pro 移植成 Linux 系统的项目。
+Fork 后即可使用 GitHub Actions 自动生成 boot.img
 
-支持：
+## 功能
+- Debian 12 / Ubuntu 22.04 ARM64 rootfs
+- CAF Kernel 4.9
+- framebuffer 显示 + shell
+- SSH / apt / Python / GCC 可用
 
-- Debian 12 ARM64
-- Ubuntu 22.04 ARM64
-- CAF Linux Kernel（Android 4.9）
-
----
-
-## 功能状态
-
-✔ 可启动 Linux  
-✔ 支持 shell / SSH  
-✔ 支持 apt / dnf  
-✔ 支持 framebuffer 显示  
-
-❌ 不支持摄像头  
-❌ 不支持通话  
-❌ GPU 加速暂时不可用  
-
----
-
-## 使用方法
-
-### 1. 编译 kernel
-在 GitHub Actions 运行：
-build_kernel.yml
-
----
-
-### 2. 构建 rootfs
-运行：
-build_rootfs.yml 或本地脚本
-
----
-
-### 3. 打包 boot.img
-
-```bash
-bash bootimg/mkbootimg.sh
+## 使用步骤
+1. Actions -> Build Kernel
+2. Actions -> Build RootFS
+3. Actions -> Build boot.img
+4. 下载 boot.img
+5. fastboot boot K5Pro_Linux_boot.img
+6. 测试成功后可 flash:
+   fastboot flash boot K5Pro_Linux_boot.img
