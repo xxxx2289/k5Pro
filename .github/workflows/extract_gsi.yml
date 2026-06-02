@@ -1,0 +1,20 @@
+name: Extract GSI (Reference Only)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install tools
+        run: sudo apt install -y mount gzip
+
+      - name: Extract system.img
+        run: |
+          mkdir gsi_mount
+          sudo mount -o loop gsi/lineage_gsi.img gsi_mount || true
+          cp -r gsi_mount/system rootfs/overlays || true
