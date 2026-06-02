@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: sudo apt install -y debootstrap qemu-user-static cpio
@@ -16,7 +16,7 @@ jobs:
         run: bash rootfs/scripts/build_rootfs.sh
 
       - name: Upload initramfs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rootfs
           path: rootfs/initramfs.cpio.gz
