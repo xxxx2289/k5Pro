@@ -9,12 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download Artifacts
+      - name: Download Kernel
         uses: actions/download-artifact@v3
         with:
           name: kernel
           path: kernel
-      - uses: actions/download-artifact@v3
+
+      - name: Download RootFS
+        uses: actions/download-artifact@v3
         with:
           name: rootfs
           path: rootfs
