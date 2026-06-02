@@ -1,13 +1,19 @@
 #!/bin/bash
 set -e
 
-ROOTFS=rootfs/ubuntu
+ROOTFS_DIR="../rootfs/ubuntu"
 ARCH=arm64
+UBUNTU_VERSION=jammy
 
-mkdir -p $ROOTFS
+mkdir -p $ROOTFS_DIR
 
-debootstrap --arch=$ARCH jammy $ROOTFS http://ports.ubuntu.com/ubuntu-ports
+# 安装 debootstrap
+sudo apt update
+sudo apt install -y debootstrap qemu-user-static cpio
 
-# initramfs
-cd $ROOTFS
-find . | cpio -H newc -o | gzip > ../initramfs.cpio.gz
+# 构建最小 Ubuntu 22.04 rootfs
+sudo debootstrap --arch=$ARCH $UBUNTU_VERSION $ROOTFS_DIR http://ports.ubuntu.com/ubuntu-ports
+
+# 生成 initramfs
+cd $ROOTFS_DIR
+sudo find . | cpio -H newc -o | gzip > ../initramfs.cpio.gz
